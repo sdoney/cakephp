@@ -261,6 +261,33 @@ class SetTest extends CakeTestCase {
  */
 	function testSort() {
 		$a = array(
+			0 => array('Person' => array('name' => 'Jeff'), 'Friend' => array(array('name' => 'z1'))),
+			1 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z10'))),
+			2 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z100'))),
+			3 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z101'))),
+			4 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z102'))),
+			5 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z11'))),
+			6 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z12'))),
+			7 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z13'))),
+			8 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z14'))),
+			9 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z15')))
+		);
+		$b = array(
+			0 => array('Person' => array('name' => 'Jeff'), 'Friend' => array(array('name' => 'z1'))),
+			1 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z10'))),
+			2 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z11'))),
+			3 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z12'))),
+			4 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z13'))),
+			5 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z14'))),
+			6 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z15'))),
+			7 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z100'))),
+			8 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z101'))),
+			9 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z102')))
+		);
+		$a = Set::sort($a, '{n}.Friend.{n}.name', 'nat');
+		$this->assertIdentical($a, $b);
+
+		$a = array(
 			0 => array('Person' => array('name' => 'Jeff'), 'Friend' => array(array('name' => 'Nate'))),
 			1 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Lindsay')))
 		);

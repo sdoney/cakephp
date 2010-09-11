@@ -1095,13 +1095,19 @@ class Set {
 		$result = Set::__flatten(Set::extract($data, $path));
 		list($keys, $values) = array(Set::extract($result, '{n}.id'), Set::extract($result, '{n}.value'));
 
-		$dir = strtolower($dir);
-		if ($dir === 'asc') {
-			$dir = SORT_ASC;
-		} elseif ($dir === 'desc') {
-			$dir = SORT_DESC;
+		if ($dir === 'nat') {
+			natcasesort($values);
+			$keys = array_keys($values);
+			$values = array_values($values);
+		} else {
+			$dir = strtolower($dir);
+			if ($dir === 'asc') {
+				$dir = SORT_ASC;
+			} elseif ($dir === 'desc') {
+				$dir = SORT_DESC;
+			}
+			array_multisort($values, $dir, $keys, $dir);
 		}
-		array_multisort($values, $dir, $keys, $dir);
 		$sorted = array();
 
 		$keys = array_unique($keys);
