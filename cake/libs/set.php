@@ -1088,20 +1088,38 @@ class Set {
  * @param array $data An array of data to sort
  * @param string $path A Set-compatible path to the array value
  * @param string $dir Direction of sorting - either ascending (ASC), or descending (DESC)
+ * @param boolean $natural Whether to use natural sorting algorithm - defaults to FALSE
+ * @param boolean $case Whether the natural sort will be case sensitive or not - defaults to TRUE
  * @return array Sorted array of data
  * @static
  */
-	function sort($data, $path, $dir) {
+	function sort($data, $path, $dir, $natural=false, $case=true) {
 		$result = Set::__flatten(Set::extract($data, $path));
 		list($keys, $values) = array(Set::extract($result, '{n}.id'), Set::extract($result, '{n}.value'));
 
-		$dir = strtolower($dir);
-		if ($dir === 'asc') {
-			$dir = SORT_ASC;
-		} elseif ($dir === 'desc') {
-			$dir = SORT_DESC;
+		if ($natural) {
+			if ($case) {
+				natsort($values); //case sensitive natural sort
+			} else {
+				natcasesort($values); //case insensitive natural sort
+			}
+			if ($dir === 'desc') {
+				$values = array_reverse($values, true); //change order of values
+			}
+			$keys = array_keys($values);
+		} else {
+			$dir = strtolower($dir);
+			if ($dir === 'asc') {
+				$dir = SORT_ASC;
+			} elseif ($dir === 'desc') {
+				$dir = SORT_DESC;
+			}
+			if (!$case) {
+				//set all values to lowercase in the comparison array for case insensitive sort
+				$values = array_map('strtolower', $values);
+			}
+			array_multisort($values, $dir, $keys, $dir);
 		}
-		array_multisort($values, $dir, $keys, $dir);
 		$sorted = array();
 
 		$keys = array_unique($keys);

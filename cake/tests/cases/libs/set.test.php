@@ -260,6 +260,119 @@ class SetTest extends CakeTestCase {
  * @return void
  */
 	function testSort() {
+		//Natural Sort - Case Sensitive - ASC
+		$a = array(
+			0 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z1'))),
+			1 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z10'))),
+			2 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z100'))),
+			3 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'Z101'))),
+			4 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z102'))),
+			5 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z11'))),
+			6 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z12'))),
+			7 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z13'))),
+			8 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z14'))),
+			9 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z15')))
+		);
+		$b = array(
+		        0 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z12'))),
+			1 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z14'))),
+			2 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'Z101'))),
+			3 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z1'))),
+			4 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z10'))),
+			5 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z11'))),
+			6 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z13'))),
+			7 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z15'))),
+			8 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z100'))),
+			9 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z102')))
+		);
+		$a = Set::sort($a, '{n}.Friend.{n}.name', null, true);
+		$this->assertIdentical($a, $b);
+
+		//Natural Sort - Case Insensitive - ASC
+		$a = array(
+			0 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z1'))),
+			1 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z10'))),
+			2 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z100'))),
+			3 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z101'))),
+			4 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z102'))),
+			5 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z11'))),
+			6 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z12'))),
+			7 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z13'))),
+			8 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z14'))),
+			9 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z15')))
+		);
+		$b = array(
+			0 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z1'))),
+			1 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z10'))),
+			2 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z11'))),
+			3 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z12'))),
+			4 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z13'))),
+			5 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z14'))),
+			6 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z15'))),
+			7 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z100'))),
+			8 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z101'))),
+			9 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z102')))
+		);
+		$a = Set::sort($a, '{n}.Friend.{n}.name', null, true, false);
+		$this->assertIdentical($a, $b);
+
+		//Natural Sort - Case Sensitive - DESC
+		$a = array(
+			0 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z1'))),
+			1 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z10'))),
+			2 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z100'))),
+			3 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'Z101'))),
+			4 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z102'))),
+			5 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z11'))),
+			6 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z12'))),
+			7 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z13'))),
+			8 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z14'))),
+			9 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z15')))
+		);
+		$b = array(
+			0 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z102'))),
+			1 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z100'))),
+			2 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z15'))),
+			3 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z13'))),
+			4 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z11'))),
+			5 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z10'))),
+			6 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z1'))),
+			7 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'Z101'))),
+			8 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z14'))),
+			9 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z12')))
+		);
+		$a = Set::sort($a, '{n}.Friend.{n}.name', 'desc', true);
+		$this->assertIdentical($a, $b);
+
+
+		//Natural Sort - Case Insensitive - DESC
+		$a = array(
+			0 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z1'))),
+			1 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z10'))),
+			2 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z100'))),
+			3 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'Z101'))),
+			4 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z102'))),
+			5 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z11'))),
+			6 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z12'))),
+			7 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z13'))),
+			8 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z14'))),
+			9 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z15')))
+		);
+		$b = array(
+			0 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z102'))),
+			1 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'Z101'))),
+			2 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z100'))),
+			3 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z15'))),
+			4 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z14'))),
+			5 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z13'))),
+			6 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Z12'))),
+			7 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'z11'))),
+			8 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z10'))),
+			9 => array('Person' => array('name' => 'Jeff'),'Friend' => array(array('name' => 'z1')))
+		);
+		$a = Set::sort($a, '{n}.Friend.{n}.name', 'desc', true, false);
+		$this->assertIdentical($a, $b);
+
 		$a = array(
 			0 => array('Person' => array('name' => 'Jeff'), 'Friend' => array(array('name' => 'Nate'))),
 			1 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Lindsay')))
@@ -344,7 +457,7 @@ class SetTest extends CakeTestCase {
 			array('employees' => array(array('name' => array()))),
 			array('employees' => array(array('name' => array())))
 		);
-		$result = Set::sort($names, '{n}.employees.0.name', 'asc', 1);
+		$result = Set::sort($names, '{n}.employees.0.name', 'asc');
 		$expected = array(
 			array('employees' => array(array('name' => array('first' => 'John', 'last' => 'Doe')))),
 			array('employees' => array(array('name' => array('first' => 'Jane', 'last' => 'Doe')))),
